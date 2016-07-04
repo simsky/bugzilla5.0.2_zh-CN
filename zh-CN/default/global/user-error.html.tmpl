@@ -112,7 +112,7 @@
 
   [% ELSIF error == "auth_failure" %]
     [% title = "需要授权" %]
-    [% admindocslinks = {'groups.html' => '群组安全性'} %]
+    [% admindocslinks = {'groups.html#groups' => '群组安全性'} %]
     很抱歉，
     [% IF group %]
       你并非 '[% group FILTER html %]' 群组的成员，
@@ -244,12 +244,12 @@
 
   [% ELSIF error == "bug_access_denied" %]
     [% title = "沒有浏览 $terms.bug 的权限" %]
-    [% admindocslinks = {'groups.html' => '群组安全性'} %]
+    [% admindocslinks = {'groups.html#groups' => '群组安全性'} %]
     你没有浏览 [% terms.bug %] #[% bug_id FILTER html %] 的权限。
 
   [% ELSIF error == "bug_access_query" %]
     [% title = "沒有浏览 $terms.bug 的权限" %]
-    [% docslinks = {'myaccount.html' => '建立新账号'} %]
+    [% docslinks = {'administering/users.html#creating-new-users' => '创建新账号'} %]
     你并未授权浏览 [% terms.bug %] #[% bug_id FILTER html %] 。
     要浏览这个 [% terms.bug %] ，你必须先以拥有适当权限的账号<a
     href="show_bug.cgi?id=
@@ -288,8 +288,8 @@
 
   [% ELSIF error == "buglist_parameters_required" %]
     [% title = "需要输入字串" %]
-    [% docslinks = {'query.html' => "搜索 $terms.bugs",
-                    'query.html#list' => "$terms.Bug 列表"} %]
+    [% docslinks = {'using/finding.html' => "搜索 $terms.bugs",
+                    'using/finding.html#bug-lists' => "$terms.Bug 列表"} %]
     在未输入搜索字串时，你无法搜索，或保存搜索结果。
 
   [% ELSIF error == "cc_remove_denied" %]
@@ -470,7 +470,7 @@
 
   [% ELSIF error == "entry_access_denied" %]
     [% title = "权限不足" %]
-    [% admindocslinks = {'groups.html' => '群组安全性'} %]
+    [% admindocslinks = {'categorization.html#product-group-controls' => '群组安全性'} %]
     很抱歉，项目 <em>[% product FILTER html %]</em> 不存在，或者你没有权限在此项目输入 [% terms.bug %] 。
 
   [% ELSIF error == "extension_create_no_name" %]
@@ -656,10 +656,9 @@
 
   [% ELSIF error == "flag_requestee_unauthorized" %]
     [% title = "你要求设定旗标的人未经授权" %]
-    [% admindocslinks = {'flags-overview.html#flags-admin'  => '管理旗标',
-                         'groups.html' => '群组安全性'} %]
-    [% docslinks = {'flags-overview.html' => '旗标概述',
-                    'flags.html' => '使用旗标'} %]
+    [% admindocslinks = [% admindocslinks = {'flags.html' =>  => '管理旗标',
+                         'categorization.html#assigning-group-controls-to-products' => '群组安全性'} %]
+    [% docslinks = {'using/understanding.html#flags' => => '使用旗标'} %]
 
     你要求 [% requestee.identity FILTER html %] 对[% terms.bug %] [% bug_id FILTER html -%]
     [% IF attach_id && attach_id > 0 %]的附件 [% attach_id FILTER html %] [% END %]设定旗标
@@ -670,10 +669,9 @@
 
   [% ELSIF error == "flag_requestee_unauthorized_attachment" %]
     [% title = "你要求设定旗标的人未经授权" %]
-    [% admindocslinks = {'flags-overview.html#flags-admin'  => '管理旗标',
-                         'groups.html' => '群组安全性'} %]
-    [% docslinks = {'flags-overview.html' => '旗标概述',
-                    'flags.html' => '使用旗标'} %]
+    [% admindocslinks = {'flags.html' => '管理旗标',
+                         'categorization.html#assigning-group-controls-to-products' => '群组安全性'} %]
+    [% docslinks = {'using/understanding.html#flags' => '使用旗标'} %]
 
     你要求 [% requestee.identity FILTER html %] 对[% terms.bug %] [% bug_id FILTER html %] 的
     附件 [% attach_id FILTER html %]设定旗标 <code>[% flag_type.name FILTER html %]</code> ，
@@ -700,7 +698,7 @@
 
   [% ELSIF error == "flag_type_cc_list_invalid" %]
     [% title = "无效的旗标类型邮件抄送列表" %]
-    [% admindocslinks = {'flags-overview.html#flags-admin'  => '管理旗标'} %]
+    [% admindocslinks = {'flags.html' => '管理旗标'} %]
     邮件抄送列表 [% cc_list FILTER html %] 必须少于 200 字符。
 
   [% ELSIF error == "flag_type_component_without_product" %]
@@ -709,12 +707,12 @@
 
   [% ELSIF error == "flag_type_description_invalid" %]
     [% title = "无效的旗标类型描述" %]
-    [% admindocslinks = {'flags-overview.html#flags-admin'  => '管理旗标'} %]
+    [% admindocslinks = {'flags.html' => '管理旗标'} %]
     你必须对此旗标类型输入描述。
 
   [% ELSIF error == "flag_type_name_invalid" %]
     [% title = "无效的旗标类型名称" %]
-    [% admindocslinks = {'flags-overview.html#flags-admin'  => '管理旗标'} %]
+    [% admindocslinks = {'flags.html' => '管理旗标'} %]
     名称 <em>[% name FILTER html %]</em> 必须是 1 到 50 字符长，且不得包含任何空白或逗号 (,) 。
 
   [% ELSIF error == "flag_type_not_editable" %]
@@ -733,17 +731,15 @@
     你必须指定它的类型编号值來新增或更新旗标。
 
   [% ELSIF error == "flag_type_not_multiplicable" %]
-    [% docslinks = {'flags-overview.html' => '旗标概述',
-                    'flags.html' => '使用旗标'} %]
+    [% docslinks = {'using/understanding.html#flags' => '使用旗标'} %]
     你不能对这个[% IF attachment %]附件
     [% ELSE %] [%+ terms.bug %] [% END %]设定多个 <em>[% type.name FILTER html %]</em> 旗标。
 
   [% ELSIF error == "flag_update_denied" %]
     [% title = "拒绝变更旗标" %]
-    [% admindocslinks = {'flags-overview.html#flags-admin'  => '管理旗标',
-                         'groups.html' => '群组安全性'} %]
-    [% docslinks = {'flags-overview.html' => '旗标概述',
-                    'flags.html' => '使用旗标'} %]
+    [% admindocslinks = {'flags.html' => '管理旗标',
+                         'categorization.html#assigning-group-controls-to-products' => '群组安全性'} %]
+    [% docslinks = {'using/understanding.html#flags' '使用旗标'} %]
     你试著[% IF status == "+" %]同意[% ELSIF status == "-" %]拒绝
     [% ELSIF status == "X" %]清除[% ELSE %]要求[% END %]
     <code>[% name FILTER html %]
@@ -905,7 +901,7 @@
 
   [% ELSIF error == "illegal_group_control_combination" %]
     [% title = "所做的群组合并无效" %]
-    [% admindocslinks = {'groups.html' => '分配群组控管至项目'} %]
+    [% admindocslinks = {'categorization.html#assigning-group-controls-to-products' => '分配群组控管至项目'} %]
     你对群组 &quot;[% groupname FILTER html %]&quot; 所做的群组合并无效。
 
   [% ELSIF error == "illegal_pronoun" %]
@@ -919,13 +915,13 @@
     你的搜索名称不得包含下列任一字符： &lt; 、 &gt; 、 &amp; 。
 
   [% ELSIF error == "illegal_series_creation" %]
-    [% admindocslinks = {'groups.html' => '群组安全性'} %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% admindocslinks = {'categorization.html#assigning-group-controls-to-products' => '群组安全性'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     你并未被授权允许新增一个系列。
 
   [% ELSIF error == "illegal_series_edit" %]
-    [% admindocslinks = {'groups.html' => '群组安全性'} %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% admindocslinks = {'categorization.html#assigning-group-controls-to-products' => '群组安全性'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     你并未被授权编辑此系列。必须是建立此系列的人或管理员才能编辑。
 
   [% ELSIF error == "illegal_regexp" %]
@@ -938,7 +934,7 @@
     用户编号 '[% userid FILTER html %]' 并非有效的整数。
 
   [% ELSIF error == "insufficient_data_points" %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     我们目前没有足够的资料可以产生图表。
 
   [% ELSIF error == "invalid_attach_id" %]
@@ -1123,8 +1119,8 @@
 
   [% ELSIF error == "milestone_already_exists" %]
     [% title = "里程碑已存在" %]
-    [% admindocslinks = {'products.html' => '管理项目',
-                         'milestones.html' => '关于里程碑'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目',
+                         'categorization.html#milestones' => '关于里程碑'} %]
     项目 '[%- product FILTER html %]' 的里程碑 '[% name FILTER html %]' 已存在。
 
   [% ELSIF error == "milestone_blank_name" %]
@@ -1133,8 +1129,8 @@
 
   [% ELSIF error == "milestone_is_default" %]
     [% title = "无法删除预设里程碑" %]
-    [% admindocslinks = {'products.html' => '管理项目',
-                         'milestones.html' => '关于里程碑'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目',
+                         'categorization.html#milestones' => '关于里程碑'} %]
     很抱歉， [% milestone.name FILTER html %] 是项目
     '[% milestone.product.name FILTER html %]' 的预设里程碑，因此无法删除。
 
@@ -1177,8 +1173,8 @@
 
   [% ELSIF error == "missing_component" %]
     [% title = "缺少模块" %]
-    [% admindocslinks = {'products.html'   => '管理项目',
-                         'components.html' => '新增模块'} %]
+    [% admindocslinks = {'categorization.html#products'   => '管理项目',
+                         'categorization.html#milestones' => '新增模块'} %]
     很抱歉，项目 <em>[% product.name FILTER html %]</em>
     中必须至少有一个模块，才能够输入 [% terms.bug %] 。<br>
     [% IF user.in_group("editcomponents", product.id) %]
@@ -1197,24 +1193,24 @@
 
   [% ELSIF error == "missing_datasets" %]
     [% title = "并未选择资料组" %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     你必须选择资料组才能产生报告。
 
   [% ELSIF error == "missing_frequency" %]
     [% title = "缺少产生频率" %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     你并未指定此系列的有效产生频率。
 
   [% ELSIF error == "missing_name" %]
     [% title = "缺少名称" %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     你并未指定此系列的名称。
 
   [% ELSIF error == "missing_query" %]
     [% title = "缺少搜索" %]
-    [% docslinks = {'query.html' => "搜索 $terms.bugs",
-                    'query.html#list' => "$terms.Bug 列表"} %]
-    名称是 <em>[% queryname FILTER html %]</em> 的搜索
+    [% docslinks = {'using/finding.html' => "搜索 $terms.bugs",
+                    'using/finding.html#bug-lists' => "$terms.Bug 列表"} %]
+    名称是 <em>[% name FILTER html %]</em> 的搜索
     [% IF sharer_id && sharer_id != user.id %]
       并未对你公开。
     [% ELSE %]
@@ -1231,7 +1227,7 @@
 
   [% ELSIF error == "missing_version" %]
     [% title = "缺少版本" %]
-    [% admindocslinks = {'versions.html' => '定义版本'} %]
+    [% admindocslinks = {'categorization.html#versions' => '定义版本'} %]
     很抱歉，项目 <em>[% product.name FILTER html %]</em>
     必须要至少有一个版本，才能够输入 [% terms.bug %] 。<br>
     [% IF user.in_group("editcomponents", product.id) %]
@@ -1245,7 +1241,7 @@
 
   [% ELSIF error == "need_quip" %]
     [% title = "需要标语" %]
-    [% docslinks = {'quips.html' => '关于标语'} %]
+    [% docslinks = {'administering/quips.html' => '关于标语'} %]
     请在文字栏输入标语。
 
   [% ELSIF error == "need_quipid" %]
@@ -1258,7 +1254,7 @@
 
   [% ELSIF error == "no_axes_defined" %]
     [% title = "座标轴未定义" %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
     你并未定义任何座标轴。
 
   [% ELSIF error == "no_bugs_chosen" %]
@@ -1294,9 +1290,11 @@
 
   [% ELSIF error == "no_products" %]
     [% title = "没有项目" %]
-    [% admindocslinks = {'products.html'   => '设定项目',
-                         'components.html' => '在项目中新增模块',
-                         'groups.html'     => '群组安全性'} %]
+    [% admindocslinks = {
+      'categorization.html#creating-new-products'  => '设定项目',
+      'categorization.html#components'             => '在项目中新增模块',
+      'categorization.html#product-group-controls' => '群组安全性'
+    } %]
     并未定义可以输入 [% terms.bugs %] 的项目，或者你没有权限可以浏览任何项目。
 
   [% ELSIF error == "no_tag_to_edit" %]
@@ -1412,23 +1410,23 @@
 
   [% ELSIF error == "product_blank_name" %]
     [% title = "不允许项目名称空白" %]
-    [% admindocslinks = {'products.html' => '管理项目'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目'} %]
     你必须输入项目的名称。
 
   [% ELSIF error == "product_disabled" %]
     [% title = BLOCK %]项目已不允许反馈 [% terms.Bug %][% END %]
-    [% admindocslinks = {'products.html' => '管理项目'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目'} %]
     很抱歉，已不允许在项目 <em>[% product.name FILTER html %]</em> 中反馈 [% terms.bug %] 。
 
   [% ELSIF error == "product_edit_denied" %]
     [% title = "权限不足" %]
-    [% admindocslinks = {'products.html' => '管理项目',
-                         'groups.html'   => '群组安全性'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目',
+                         'categorization.html#assigning-group-controls-to-products' => '群组安全性'} %]
     你并未被允许在项目 [% product FILTER html %] 中编辑 [% terms.bugs %] 。
 
   [% ELSIF error == "product_has_bugs" %]
     [% title = BLOCK %]项目中还有[% terms.Bugs %][% END %]
-    [% admindocslinks = {'products.html' => '管理项目'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目'} %]
     在此项目中还有 [% nb FILTER html %] 个 [% terms.bugs %] ！
     在你删除此项目之前，你必须先搬移这些 [% terms.bugs %] 到另一个项目中。
 
@@ -1439,8 +1437,8 @@
 
   [% ELSIF error == "product_must_define_defaultmilestone" %]
     [% title = "必须定义新的预设里程碑" %]
-    [% admindocslinks = {'products.html' => '管理项目',
-                         'milestones.html' => '关于里程碑'} %]
+    [% admindocslinks = {'categorization.html#products'   => '管理项目',
+                         'categorization.html#milestones' => '关于里程碑'} %]
     你必须<a href="editmilestones.cgi?action=add&amp;product=[% product FILTER uri %]">
     新增里程碑 '[% milestone FILTER html %]' </a>，才能将它设定为项目
     '[% product FILTER html %]' 的预设里程碑。
@@ -1452,18 +1450,18 @@
 
   [% ELSIF error == "product_must_have_version" %]
     [% title = "必须输入项目版本" %]
-    [% admindocslinks = {'products.html' => '管理项目',
-                         'versions.html' => '管理版本'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目',
+                         'categorization.html#versions' => '管理版本'} %]
     你必须输入有效的版本，才能新增一项项目。
 
   [% ELSIF error == "product_name_already_in_use" %]
     [% title = "项目名称已存在" %]
-    [% admindocslinks = {'products.html' => '管理项目'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目'} %]
     项目名称 '[% product FILTER html %]' 已存在。
 
   [% ELSIF error == "product_name_diff_in_case" %]
     [% title = "项目名称仅大小写不同" %]
-    [% admindocslinks = {'products.html' => '管理项目'} %]
+    [% admindocslinks = {'categorization.html#products' => '管理项目'} %]
     项目名称 '[% product FILTER html %]' 和已存在的项目 '[% existing_product FILTER html %]' 仅大小写不同。
 
   [% ELSIF error == "product_name_too_long" %]
@@ -1483,7 +1481,7 @@
 
   [% ELSIF error == "query_name_missing" %]
     [% title = "未指定搜索名称" %]
-    [% docslinks = {'query.html#list' => "$terms.Bug 列表"} %]
+    [% docslinks = {'using/finding.html#bug-lists' => "$terms.Bug 列表"} %]
     你必须输入你的搜索名称。
 
   [% ELSIF error == "query_name_too_long" %]
@@ -1590,7 +1588,7 @@
 
   [% ELSIF error == "saved_search_used_by_whines" %]
     [% title = "搜索名称使用中" %]
-    [% docslinks = {'whining.html' => '关于订阅'} %]
+    [% docslinks = {'administering/whining.html' => '关于订阅'} %]
     已保存的搜索名称 <em>[% search_name FILTER html %]</em> 已被用于<a
     href="editwhines.cgi">订阅</a>，主题为下列内容：
     [%+ subjects FILTER html %]
@@ -1623,7 +1621,7 @@
 
   [% ELSIF error == "series_already_exists" %]
     [% title = "系列已存在" %]
-    [% docslinks = {'reporting.html' => '报告'} %]
+    [% docslinks = {'using/reports-and-charts.html' => '报告'} %]
       名称是 <em>[% series.category FILTER html %] /
       [%+ series.subcategory FILTER html %] /
       [%+ series.name FILTER html %]</em>
@@ -1724,7 +1722,7 @@
 
   [% ELSIF error == "version_already_exists" %]
     [% title = "版本已存在" %]
-    [% admindocslinks = {'versions.html' => '管理版本'} %]
+    [% admindocslinks = {'categorization.html#versions' => '管理版本'} %]
     项目'[%- product FILTER html %]'已存在版本'[% name FILTER html %]'。
 
   [% ELSIF error == "version_blank_name" %]
@@ -1743,12 +1741,12 @@
 
   [% ELSIF error == "users_deletion_disabled" %]
     [% title = "未开启删除功能" %]
-    [% admindocslinks = {'useradmin.html' => '管理用户'} %]
+    [% admindocslinks = {'users.html#deleting-users' => '管理用户'} %]
     很抱歉，不允许删除用户帐号。
 
   [% ELSIF error == "user_has_responsibility" %]
     [% title = "无法删除用户帐号" %]
-    [% admindocslinks = {'useradmin.html' => '管理用户'} %]
+    [% admindocslinks = {'users.html#deleting-users' => '管理用户'} %]
     你想要删除的用户被设定为至少一项模块的 [% terms.bug %] 预设负责人
     [% IF Param('useqacontact') %]或 QA 连络人[% END %]。
     因此，你现在无法删除该帐号。
@@ -1763,7 +1761,7 @@
 
   [% ELSIF error == "user_login_required" %]
     [% title = "需要帐号" %]
-    [% admindocslinks = {'useradmin.html' => '管理用户'} %]
+    [% admindocslinks = {'users.html' => '管理用户'} %]
     你必须替新用户输入帐号。
 
   [% ELSIF error == "user_match_failed" %]

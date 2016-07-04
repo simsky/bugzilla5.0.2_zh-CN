@@ -27,8 +27,6 @@
   <a id="login_link[% qs_suffix %]" href="[% script_url FILTER html %]"
      onclick="return show_mini_login_form('[% qs_suffix %]')">登录</a>
 
-  [% Hook.process('additional_methods') %]
-
   <form action="[% login_target FILTER html %]" method="POST"
         class="mini_login bz_default_hidden"
         id="mini_login[% qs_suffix FILTER html %]">
@@ -56,6 +54,10 @@
     <a href="#" onclick="return hide_mini_login_form('[% qs_suffix %]')">[x]</a>
   </form>
 </li>
+
+[% Hook.process('additional_methods') %]
+
+[% IF user.authorizer.can_change_password %]
 <li id="forgot_container[% qs_suffix %]">
   <span class="separator">| </span>
   <a id="forgot_link[% qs_suffix %]" href="[% script_url FILTER html %]#forgot"
@@ -77,3 +79,4 @@
     <a href="#" onclick="return hide_forgot_form('[% qs_suffix %]')">[x]</a>
   </form>
 </li>
+[% END %]
